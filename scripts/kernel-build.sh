@@ -38,7 +38,7 @@ for p in kmod-igb kmod-itco-wdt kmod-i2c-i801 kmod-gpio-pca953x kmod-mdio-gpio k
 	 python3 tailscale ser2net collectd collectd-mod-cpu collectd-mod-memory collectd-mod-load collectd-mod-interface \
 	 collectd-mod-ping collectd-mod-thermal collectd-mod-uptime collectd-mod-exec luci-app-statistics \
 	 curl kmod-usb-serial-ftdi kmod-usb-serial-cp210x kmod-usb-serial-pl2303 kmod-usb-serial-ch341 picocom kmod-leds-pca963x \
-	 kmod-sched-cake kmod-ifb sqm-scripts luci-app-sqm bash fping coreutils-sleep coreutils-date vnstat2 vnstati2 luci-app-vnstat2 dockerd docker docker-compose kmod-veth kmod-ikconfig; do
+	 kmod-sched-cake kmod-ifb sqm-scripts luci-app-sqm bash fping coreutils-sleep coreutils-date vnstat2 vnstati2 luci-app-vnstat2 dockerd docker docker-compose kmod-veth kmod-ikconfig kmod-wireguard wireguard-tools luci-proto-wireguard; do
 	echo "CONFIG_PACKAGE_$p=y" >> .config
 done
 make defconfig >/dev/null
