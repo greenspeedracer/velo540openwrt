@@ -75,7 +75,7 @@ while :; do
 		if [ $fan_off -eq 0 ] && [ "$temp" -le "$off_below" ]; then
 			fan_off=1; E 0x40 0; logger -t velo540-fand "temp ${temp}C <= ${off_below}: fan off"
 		elif [ $fan_off -eq 1 ] && [ "$temp" -ge "$on_above" ]; then
-			fan_off=0; tach=$(u tach auto); min_duty=$(u min_duty 40); notach=0; E 0x40 0x30; sleep 2; duty=14; E 0x40 $duty; zeros=0; logger -t velo540-fand "temp ${temp}C >= ${on_above}: fan on"
+			fan_off=0; tach=$(u tach auto); min_duty=$(u min_duty 40); notach=0; E 0x40 0x30; sleep 2; duty=128; E 0x40 $duty; zeros=0; logger -t velo540-fand "temp ${temp}C >= ${on_above}: fan on"
 		fi
 		if [ $fan_off -eq 1 ]; then echo 0 > /tmp/velo540-fan.duty; sleep "$period"; continue; fi
 	fi
@@ -88,7 +88,7 @@ while :; do
 	elif [ "$rpm" -eq 0 ]; then			# no tach pulses: only a stall if it persists (3 rounds)
 		zeros=$(( zeros + 1 ))
 		if [ $zeros -ge 3 ]; then
-			E 0x40 0x30; sleep 2; duty=14; E 0x40 $duty; zeros=0; logger -t velo540-fand "stall detected, kicked"
+			E 0x40 0x30; sleep 2; duty=128; E 0x40 $duty; zeros=0; logger -t velo540-fand "stall detected, kicked"
 		fi
 	else
 		zeros=0
