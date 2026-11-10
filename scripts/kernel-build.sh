@@ -27,6 +27,8 @@ CONFIG_TARGET_KERNEL_PARTSIZE=16
 # CONFIG_TARGET_ROOTFS_SQUASHFS is not set
 # CONFIG_GRUB_EFI_IMAGES is not set
 CONFIG_PACKAGE_kmod-velo540-glue=y
+CONFIG_DOCKER_STO_EXT4=y
+CONFIG_DOCKER_CGROUP_OPTIONS=y
 CFG
 for p in kmod-igb kmod-itco-wdt kmod-i2c-i801 kmod-gpio-pca953x kmod-mdio-gpio kmod-i2c-gpio kmod-dsa-mv88e6xxx \
 	 kmod-usb-storage-uas kmod-usb3 kmod-usb-xhci-pci-renesas kmod-hwmon-coretemp i2c-tools mdio-tools kmod-mdio-netlink ethtool tcpdump-mini gpiod-tools \
@@ -36,7 +38,7 @@ for p in kmod-igb kmod-itco-wdt kmod-i2c-i801 kmod-gpio-pca953x kmod-mdio-gpio k
 	 python3 tailscale ser2net collectd collectd-mod-cpu collectd-mod-memory collectd-mod-load collectd-mod-interface \
 	 collectd-mod-ping collectd-mod-thermal collectd-mod-uptime collectd-mod-exec luci-app-statistics \
 	 curl kmod-usb-serial-ftdi kmod-usb-serial-cp210x kmod-usb-serial-pl2303 kmod-usb-serial-ch341 picocom kmod-leds-pca963x \
-	 kmod-sched-cake kmod-ifb sqm-scripts luci-app-sqm bash fping coreutils-sleep coreutils-date vnstat2 vnstati2 luci-app-vnstat2; do
+	 kmod-sched-cake kmod-ifb sqm-scripts luci-app-sqm bash fping coreutils-sleep coreutils-date vnstat2 vnstati2 luci-app-vnstat2 dockerd docker docker-compose kmod-veth kmod-ikconfig; do
 	echo "CONFIG_PACKAGE_$p=y" >> .config
 done
 make defconfig >/dev/null
