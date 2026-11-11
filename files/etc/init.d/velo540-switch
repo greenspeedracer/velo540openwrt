@@ -140,11 +140,12 @@ fan_up() {
 		[ "$(cat $c/label 2>/dev/null)" = "9-001c" ] && b2=${c#*gpiochip}
 	done
 	if [ -n "$b2" ]; then
+		[ "$(uci -q get velo540.@fan[0].mode)" = pwm ] && fp=1 || fp=0
 		for p in 6 7; do
 			g=$(( b2 + p ))
 			[ -d /sys/class/gpio/gpio$g ] || echo $g > /sys/class/gpio/export
 			echo out > /sys/class/gpio/gpio$g/direction
-			echo $(( p - 6 )) > /sys/class/gpio/gpio$g/value
+			if [ $p -eq 6 ]; then echo $fp; else echo 1; fi > /sys/class/gpio/gpio$g/value
 		done
 	fi
 	echo "fan: EMC2104 in PWM mode, temps $(i2cget -y 9 0x2f 0)/$(i2cget -y 9 0x2f 2)/$(i2cget -y 9 0x2f 4)/$(i2cget -y 9 0x2f 6) C"
